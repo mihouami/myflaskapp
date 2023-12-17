@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block title %}Sort{% endblock %} {% block content
+    %}
+    <h1>Sort items</h1>
+    <div class="search-form">
+        
+    <form action="/sort">
+        <label for="sort1">Sort by:</label>
+        <select name="sort1">
+            <option value="name" {% if sort1 == 'name' %} selected {% endif %}>Name</option>
+            <option value="id" {% if sort1 == 'id' %} selected {% endif %}>Id</option>
+            <option value="added" {% if sort1 == 'added' %} selected {% endif %}>added</option>
+        </select>
+        <select name="sort2">
+          <option value="asc" {% if sort2 == 'asc' %} selected {% endif %}>Ascend</option>
+          <option value="desc" {% if sort2 == 'desc' %} selected {% endif %}>Descend</option>
+      </select>
+        <input type="submit" value="Sort">
+    </form>
+      <br />
+      {% if items|length >= 1 %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Added</th>
+            <th>Deleted</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        {% for item in items %}
+        {% if item.deleted == False %}
+        <tbody>
+          <tr>
+            <th>{{item.id}}</th>
+            <th>{{item.name}}</th>
+            <th>{{item.added.date()}}</th>
+            <th>{{item.deleted}}</th>
+            <th>
+                <a href="/delete/{{ item.id }}" style="color: red;">Delete</a>
+                <br />
+                <a href="/update/{{ item.id }}">Update</a>
+              </form>
+            </th>
+          </tr>
+        </tbody>
+        {% endif %}
+        {% endfor %}
+      </table>
+      {% else %}
+      <h2>There no no Items</h2>
+      {% endif %}
+    </div>
+    {% endblock %}
+    

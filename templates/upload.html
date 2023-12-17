@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block title %}Upload{% endblock %} {% block content
+    %}
+    <h1>Upload file</h1>
+    <br>
+    <div class="search-form">
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required/>
+        <button type="submit">Submit</button>
+      </form>
+      <br />
+      {% if files|length >= 1 %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>Added</th>
+            <th>Deleted</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        {% for file in files %}
+        {% if file.deleted == False %}
+        <tbody>
+          <tr>
+            <th>{{file.id}}</th>
+            <th>{{file.filename}}</th>
+            <th>{{file.added.date()}}</th>
+            <th>{{file.deleted}}</th>
+            <th>
+                <a href="/delete/file/{{ file.id }}" style="color: red;">Delete</a>
+                <br />
+                <a href="/download/{{ file.id }}">Download</a>
+              </form>
+            </th>
+          </tr>
+        </tbody>
+        {% endif %}
+        {% endfor %}
+      </table>
+      {% else %}
+      <br><br><br>
+      <h2>No files uploaded in the database</h2>
+      {% endif %}
+    </div>
+    {% endblock %}
+    

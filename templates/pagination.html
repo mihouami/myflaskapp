@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block title %}Pagination{% endblock %} {% block content
+    %}
+  <body>
+    <h1>Items</h1>
+  <br>
+  <form action="/pagination">
+    <label for="'pages">Result per page:</label>
+    <select name="pages">
+        <option value="5" {% if pages == 5 %} selected {% endif %}>5</option>
+        <option value="10" {% if pages == 10 %} selected {% endif %}>10</option>
+        <option value="20" {% if pages == 20 %} selected {% endif %}>20</option>
+    </select>
+    <input type="submit" value="Submit">
+</form>
+<br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Added</th>
+            <th>Deleted</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        {% for item in pagination.items %}
+        {% if item.deleted == False %}
+        <tbody>
+          <tr>
+            <th>{{item.id}}</th>
+            <th>{{item.name}}</th>
+            <th>{{item.added.date()}}</th>
+            <th>{{item.deleted}}</th>
+            <th>
+                <a href="/delete/{{ item.id }}" style="color: red;">Delete</a>
+                <br />
+                <a href="/update/{{ item.id }}">Update</a>
+              </form>
+            </th>
+          </tr>
+        </tbody>
+        {% endif %}
+        {% endfor %}
+      </table>
+<div class="center">
+  {% if pagination.has_prev %}
+  <a href="{{ url_for('show_items', page=pagination.prev_num, pages=pages) }}">Previous</a>
+  {% endif %} 
+  {% if pagination.has_next %}
+  <a href="{{ url_for('show_items', page=pagination.next_num, pages=pages) }}">Next</a>
+  {% endif %}
+  <br><br>
+  <p >Page {{ pagination.page }} of {{ pagination.pages }}</p>
+  <p>Total items: {{ pagination.total }}</p>
+</div>
+  </body>
+</html>
+{% endblock
+  %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block title %}Update{% endblock %} {% block
+content%}
+<h1>Update Item</h1>
+<br />
+<form action="/update/{{ item.id }}" method="post">
+  <!-- Form content remains the same -->
+  <div class="form-group">
+    <label for="new_name">New Item update</label>
+    <input type="text" id="new_name" name="new_name" value="{{ item.name }}" />
+  </div>
+  <button type="submit">Update</button>
+</form>
+{% endblock %}

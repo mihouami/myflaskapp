@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block title %}Deleted{% endblock %} {% block
+content %}
+<h1>Deleted Items</h1>
+<br />
+{% if items|length >= 1 %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Added</th>
+      <th>Deleted</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for item in items %}
+  <tbody>
+    <tr>
+      <th>{{item.id}}</th>
+      <th>{{item.name}}</th>
+      <th>{{item.added.date()}}</th>
+      <th>{{item.deleted}}</th>
+      <th>
+        <a href="/delete/def/{{ item.id }}" style="color: red"
+          >Delete definitely</a
+        >
+        <br />
+        <a href="/restore/{{ item.id }}">Restore</a>
+      </th>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+{% else %}
+<h2>There no no Deleted Items</h2>
+{% endif %}
+
+<h1>Deleted Files</h1>
+<br />
+{% if files|length >= 1 %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>File Name</th>
+      <th>Added</th>
+      <th>Deleted</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  {% for file in files %}
+  <tbody>
+    <tr>
+      <th>{{file.id}}</th>
+      <th>{{file.filename}}</th>
+      <th>{{file.added.date()}}</th>
+      <th>{{file.deleted}}</th>
+      <th>
+        <a href="/delete/def/file/{{ file.id }}" style="color: red"
+          >Delete definitely</a
+        >
+        <br />
+        <a href="/restore/file/{{ file.id }}">Restore</a>
+      </th>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+{% else %}
+<br /><br /><br />
+<h2>No files uploaded in the database</h2>
+{% endif %} {% endblock %}

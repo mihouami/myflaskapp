@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Base{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="/search">Search</a>
+        <a class="navbar-brand" href="/sort">Sort</a>
+        <a class="navbar-brand" href="/deleted">Deleted</a>
+        <a class="navbar-brand" href="/upload">Upload</a>
+        <a class="navbar-brand" href="/pagination">Pagination</a>
+        <a class="navbar-brand" href="/api">API</a>
+        <!-- Add any common navigation links or elements here -->
+      </div>
+    </nav>
+
+    <div class="container">{% block content %}{% endblock %}</div>
+  </body>
+</html>
