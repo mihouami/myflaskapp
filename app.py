@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from csv import DictWriter
 from io import BytesIO, StringIO
-import requests
+from requests import get
+from json import dumps
 
 
 app = Flask(__name__)
@@ -28,20 +29,13 @@ class Item(db.Model):
 
 
 @app.route('/api')
-def get_hadiths():
-    api_key = ' $2y$10$f8lzIXEmYDmG45NadPDmdo1BaQcu3fMT7U1CUckqqonu2htRh6'  # Replace 'YOUR_API_KEY' with your actual API key
-    url = f'https://www.hadithapi.com/api/hadiths?apiKey={api_key}'
+def api():
+    api_key = 'xqCVL7TbJCBIrEan8D97cAtuAxg12tka6ZWLawnx'
+    endpoint = f"https://api.nasa.gov/planetary/apod?api_key={api_key}"
+    r = get(endpoint)
+    data = r.json()
 
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            # Pass the data to an HTML template for rendering
-            return render_template('api.html', data=data)
-        else:
-            return f"Error: {response.status_code} - {response.text}"
-    except requests.RequestException as e:
-        return f"Request Error: {e}"
+    return render_template('api.html', data=data)
 
 @app.route('/pagination')
 def show_items():
