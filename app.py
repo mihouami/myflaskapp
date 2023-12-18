@@ -31,25 +31,33 @@ class Item(db.Model):
 
 @app.route("/apiex", methods=["POST", "GET"])
 def apiex():
-    data = {"ABC": 0.5, "DEF": 2.5, "GHI": 5}
+    key = "d2e51f7fdee4e9d0f617bb70c6369f35"
+    url = "http://api.exchangeratesapi.io/v1/latest?access_key=d2e51f7fdee4e9d0f617bb70c6369f35"
+    r = get(url)
+    data = r.json()
 
     if request.method == "POST":
         in_value = request.form["amount"]
         from_rate = request.form["from_rate"]
-        from_to_eur = int(in_value) / float(from_rate)
         to_rate = request.form["to_rate"]
+        
+
+        from_to_eur = float(in_value) / float(from_rate)
+        in_value = "{:,.2f}".format(float(in_value))
         from_eur_to = from_to_eur * float(to_rate)
+        from_eur_to = "{:,.2f}".format(from_eur_to)
+
         return render_template(
             "apiex.html",
-            data=data,
             in_value=in_value,
             from_rate=from_rate,
             to_rate=to_rate,
-            from_eur_to=from_eur_to,
             from_to_eur=from_to_eur,
+            from_eur_to=from_eur_to,
+            data=data['rates']
         )
     else:
-        return render_template("apiex.html", data=data)
+        return render_template("apiex.html", data=data['rates'])
 
 
 """
