@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %}API EXCHANGE{% endblock %} {% block
+content %}
+<h1>Exchange Rates</h1>
+<br>
+<form action="/apiex" method="post">
+  <label>From: </label>
+  <input type="text" name="amount" placeholder="Amount" value = '{{ in_value }}'required/>
+  <label>Currency: </label>
+  <select name="from_rate">
+      {% for key, value in data.items() %}
+      <option value="{{ value }}" {% if from_rate == value|string %} selected {% endif %}>{{ key }}</option>
+      {% endfor %}
+  </select>
+  <br>
+  <br>
+  <label>EUR:  </label>
+  <input type="text" value = '{{ from_to_eur }}'/>
+<br>
+<br>
+<label>To :   </label>
+  <input type="text" placeholder="Amount" value = '{{ from_eur_to }}'/>
+  <label>Currency: </label>
+  <select name="to_rate">
+      {% for key, value in data.items() %}
+      <option value="{{ value }}" {% if to_rate == value|string %} selected {% endif %}>{{ key }}</option>
+      {% endfor %}
+  </select>
+<br>
+<br>
+  <button type="submit">Convert</button>
+</form>
+{% if in_value and rate %}
+<p>EUR : {{ in_value }}</p>
+{% for key, value in data.items() %}
+{% if rate == value|string %}
+<p>{{ key }} : {{ rate }}</p>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% endblock %}

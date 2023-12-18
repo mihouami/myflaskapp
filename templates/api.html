@@ -1,22 +1,15 @@
 {% extends 'base.html' %} {% block title %}API{% endblock %} {% block content %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>API</title>
-  </head>
-  <body>
-    <h1>{{ data.copyright }}</h1>
-    <h2>{{ data.date }}</h2>
-    <br />
-    <p>{{ data.explanation }}</p>
-    <br />
-    <img src="{{ data.hdurl }}" alt="" style="width: 1000px" />
-    <br />
-    <br />
-    <p><strong>Title : {{ data.title }}</strong></p>
-    <br />
-  </body>
-</html>
+
+<h1>{{ data.copyright }}</h1>
+<h2>{{ data.date }}</h2>
+<br />
+<p>{{ data.explanation }}</p>
+<br />
+<img src="{{ data.hdurl }}" alt="" style="width: 1000px" />
+<br />
+<br />
+<p><strong>Title : {{ data.title }}</strong></p>
+<br />
 
 {% endblock %}
